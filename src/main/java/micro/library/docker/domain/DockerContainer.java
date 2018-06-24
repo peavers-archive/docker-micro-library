@@ -1,10 +1,8 @@
 package micro.library.docker.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -17,11 +15,11 @@ public class DockerContainer {
 
     Boolean remove;
 
-    List<String> volume;
+    private List<String> volume;
 
-    List<String> environment;
+    private List<String> environment;
 
-    public void setVolume(String volume) {
+    public void addVolume(String volume) {
         List<String> list = this.getVolume();
 
         list.add("-e");
@@ -30,7 +28,7 @@ public class DockerContainer {
         this.volume.addAll(list);
     }
 
-    public void setEnvironment(String environment) {
+    public void addEnvironment(String environment) {
         List<String> list = this.getEnvironment();
 
         list.add("-e");
