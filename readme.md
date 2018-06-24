@@ -1,7 +1,7 @@
 [![](https://jitpack.io/v/peavers/docker-micro-library.svg)](https://jitpack.io/#peavers/docker-micro-library)
 [![Maintainability](https://api.codeclimate.com/v1/badges/76b29a1ae3df88377907/maintainability)](https://codeclimate.com/github/peavers/docker-micro-library/maintainability)
 
-#Docker Micro Library
+# Docker Micro Library
 A very tiny wrapper around a `ProcessBuilder` for running docker commands.
 
 ## Spring boot example
