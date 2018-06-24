@@ -1,5 +1,6 @@
 package micro.library.docker.api;
 
+import com.sun.istack.internal.NotNull;
 import micro.library.docker.domain.DockerContainer;
 import micro.library.docker.service.ScriptService;
 import micro.library.docker.service.ScriptServiceImpl;
@@ -15,8 +16,14 @@ public class DockerApiImpl implements DockerApi {
         this.scriptService = new ScriptServiceImpl();
     }
 
+    /**
+     * Builds a standard docker execution command using the values passed into the 'DockerContainer'.
+     *
+     * @param dockerContainer DockerContainer
+     * @return int status code of the execution. Anything but 0 will represent an error.
+     */
     @Override
-    public int run(DockerContainer dockerContainer) {
+    public int run(@NotNull DockerContainer dockerContainer) {
         final List<String> command = new ArrayList<>();
 
         command.add("docker");
@@ -35,8 +42,11 @@ public class DockerApiImpl implements DockerApi {
         return scriptService.executeScript(command);
     }
 
+    /**
+     * @param dockerContainer
+     * @TODO
+     */
     @Override
     public void stop(DockerContainer dockerContainer) {
-
     }
 }
