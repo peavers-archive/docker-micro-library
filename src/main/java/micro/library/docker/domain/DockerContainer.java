@@ -16,9 +16,9 @@ public class DockerContainer {
 
     Boolean remove;
 
-    List<String> volume = new ArrayList<>();
+    List<String> volume;
 
-    List<String> environment = new ArrayList<>();
+    List<String> environment;
 
     public void setVolume(String volume) {
         List<String> list = this.getVolume();
