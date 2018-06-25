@@ -36,6 +36,8 @@ public class ScriptServiceImpl implements ScriptService {
             final ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash").command(command);
             processBuilder.redirectErrorStream(true);
 
+            processBuilder.command().toString();
+
             final Process process = processBuilder.start();
             final InputStream inputStream = process.getInputStream();
             final InputStream errorStream = process.getErrorStream();

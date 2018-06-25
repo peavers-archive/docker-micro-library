@@ -1,6 +1,5 @@
 package micro.library.docker.domain;
 
-import com.sun.istack.internal.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,17 +13,15 @@ public class DockerContainer {
     /**
      * Name of the container '--name'.
      */
-    @NotNull
     String name;
 
     /**
      * Image name.
      */
-    @NotNull
     String image;
 
     /**
-     * If true the container will be deleted when removed '--rm'.
+     * If true the container will be deleted when stopped '--rm'.
      */
     Boolean remove;
 
@@ -48,8 +45,6 @@ public class DockerContainer {
 
         list.add("-v");
         list.add(volume);
-
-        this.volume.addAll(list);
     }
 
     /**
@@ -62,8 +57,6 @@ public class DockerContainer {
 
         list.add("-e");
         list.add(environment);
-
-        this.environment.addAll(list);
     }
 
     /**

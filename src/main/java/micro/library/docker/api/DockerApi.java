@@ -12,10 +12,6 @@ public interface DockerApi {
      */
     int run(DockerContainer dockerContainer);
 
-    /**
-     * @param dockerContainer
-     * @TODO
-     */
     void stop(DockerContainer dockerContainer);
 
 }
