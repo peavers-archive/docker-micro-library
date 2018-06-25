@@ -1,8 +1,11 @@
 [![](https://jitpack.io/v/peavers/docker-micro-library.svg)](https://jitpack.io/#peavers/docker-micro-library)
 [![Maintainability](https://api.codeclimate.com/v1/badges/76b29a1ae3df88377907/maintainability)](https://codeclimate.com/github/peavers/docker-micro-library/maintainability)
 
-# Docker Micro Library
+# Docker micro library
 A very tiny wrapper around a `ProcessBuilder` for running docker commands.
+
+## What's a micro library? 
+Just that, a very tiny standalone .jar which can be imported into a project to do a very specific thing. 
 
 ## Installation
 Since we're making good use of JitPack, this is simple. 
