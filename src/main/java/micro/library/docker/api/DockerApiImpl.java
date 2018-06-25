@@ -1,19 +1,15 @@
 package micro.library.docker.api;
 
 import micro.library.docker.domain.DockerContainer;
-import micro.library.docker.service.ScriptService;
-import micro.library.docker.service.ScriptServiceImpl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DockerApiImpl implements DockerApi {
-
-    private final ScriptService scriptService;
-
-    public DockerApiImpl() {
-        this.scriptService = new ScriptServiceImpl();
-    }
 
     /**
      * Builds a standard docker execution command using the values passed into the 'DockerContainer'.
@@ -35,10 +31,55 @@ public class DockerApiImpl implements DockerApi {
         command.add(dockerContainer.getImage());
         command.add(dockerContainer.getCommand());
 
-        return scriptService.executeScript(command);
+        return executeScript(command);
     }
 
     @Override
     public void stop(DockerContainer dockerContainer) {
+    }
+
+    /**
+     * Streams the output from the executing script to the console.
+     *
+     * @param iStream InputStream
+     */
+    private void readStream(final InputStream iStream) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iStream))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Runs the commands passed in. Commands are executed with bash so make sure they're valid.
+     * Output is read straight to the console using the INFO tag.
+     *
+     * @param command List<String>
+     */
+    private int executeScript(final List<String> command) {
+        try {
+            final ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash").command(command);
+            processBuilder.redirectErrorStream(true);
+
+            System.out.println("executing: " + processBuilder.command().toString());
+
+            final Process process = processBuilder.start();
+            final InputStream inputStream = process.getInputStream();
+            final InputStream errorStream = process.getErrorStream();
+
+            readStream(inputStream);
+            readStream(errorStream);
+
+            return process.waitFor();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return -1;
     }
 }
