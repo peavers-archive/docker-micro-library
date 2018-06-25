@@ -8,15 +8,15 @@ A very tiny wrapper around a `ProcessBuilder` for running docker commands.
 Since we're making good use of JitPack, this is simple. 
 
 ```groovy
-	allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
+allprojects {
+	repositories {
+		maven { url 'https://jitpack.io' }
 	}
+}
 	
-	dependencies {
-	        implementation 'com.github.peavers:docker-micro-library:-SNAPSHOT'
-	}	
+dependencies {
+    implementation 'com.github.peavers:docker-micro-library:-SNAPSHOT'
+}	
 ```
 Click the JitPack build badge for more examples with maven, sbt example. 
 
