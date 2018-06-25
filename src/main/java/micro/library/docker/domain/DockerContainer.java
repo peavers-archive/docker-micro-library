@@ -26,11 +26,6 @@ public class DockerContainer {
     Boolean remove;
 
     /**
-     * Extra commands to add to the build
-     */
-    String command;
-
-    /**
      * List of volumes to mount '-v'.
      */
     private List<String> volume = new ArrayList<>();

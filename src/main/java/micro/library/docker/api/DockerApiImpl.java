@@ -23,13 +23,15 @@ public class DockerApiImpl implements DockerApi {
 
         command.add("docker");
         command.add("run");
+
         if (dockerContainer.getRemove()) command.add("--rm");
+
         command.add("--name");
         command.add(dockerContainer.getName());
         command.addAll(dockerContainer.getEnvironment());
         command.addAll(dockerContainer.getVolume());
+
         command.add(dockerContainer.getImage());
-        command.add(dockerContainer.getCommand());
 
         return executeScript(command);
     }
