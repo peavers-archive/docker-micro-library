@@ -22,7 +22,7 @@ class DockerApiImplTest {
         dockerContainer.setImage("TEST_IMAGE");
         dockerContainer.setRemove(true);
         dockerContainer.addEnvironment("TEST_ENVIRONMENT");
-        dockerContainer.addVolume("TEST_VOLUME");
+        dockerContainer.addVolume("TEST_VOLUME:TEST_VOLUME");
     }
 
     @AfterEach
@@ -46,7 +46,7 @@ class DockerApiImplTest {
         // Should be mocked
         final ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash").command(command);
 
-        assertEquals("[docker, run, --rm, --name, TEST_NAME, -e, TEST_ENVIRONMENT, -v, TEST_VOLUME, TEST_IMAGE]", processBuilder.command().toString());
+        assertEquals("[docker, run, --rm, --name, TEST_NAME, -e, TEST_ENVIRONMENT, -v, TEST_VOLUME:TEST_VOLUME, TEST_IMAGE]", processBuilder.command().toString());
     }
 
     @Test
