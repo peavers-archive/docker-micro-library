@@ -44,7 +44,7 @@ public class DockerApiImpl implements DockerApi {
         command.add("login");
         command.add("--username");
         command.add(username);
-        command.add("--password-stdin");
+        command.add("--password");
         command.add(password);
         command.add(endpoint);
 
