@@ -37,7 +37,18 @@ public class DockerApiImpl implements DockerApi {
     }
 
     @Override
-    public void stop(DockerContainer dockerContainer) {
+    public int login(String username, String password, String endpoint) {
+        final List<String> command = new ArrayList<>();
+
+        command.add("docker");
+        command.add("login");
+        command.add("--username");
+        command.add(username);
+        command.add("--password-stdin");
+        command.add(password);
+        command.add(endpoint);
+
+        return executeScript(command);
     }
 
     /**
