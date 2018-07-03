@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class DockerContainer {
+public class Container {
 
     /**
      * Name of the container '--name'.
@@ -16,9 +16,9 @@ public class DockerContainer {
     String name;
 
     /**
-     * Image name.
+     * Image.
      */
-    String image;
+    Image image;
 
     /**
      * If true the container will be deleted when stopped '--rm'.

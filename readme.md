@@ -36,7 +36,7 @@ public class DockerConfig {
     }
 
     @Bean
-    public DockerContainer dockerContainer() {
+    public DockerContainer container() {
         return new DockerContainer();
     }
 
@@ -48,20 +48,20 @@ Load up the `DockerContainer` and execute
 @Component
 public class CreateContainer {
 
-    private final DockerContainer dockerContainer;
+    private final DockerContainer container;
 
     private final DockerApi dockerApi;
 
-    public CreateContainer(DockerContainer dockerContainer, DockerApi dockerApi) {
-        this.dockerContainer = dockerContainer;
+    public CreateContainer(DockerContainer container, DockerApi dockerApi) {
+        this.container = container;
         this.dockerApi = dockerApi;
     }
     
     private void create() {
-        dockerContainer.setName("Name of the container");
-        dockerContainer.setImage("createContainer:latest");
+        container.setName("Name of the container");
+        container.setImage("createContainer:latest");
 
-        dockerApi.run(dockerContainer);
+        dockerApi.run(container);
     }
 }
 ```

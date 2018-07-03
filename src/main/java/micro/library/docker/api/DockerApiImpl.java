@@ -1,6 +1,7 @@
 package micro.library.docker.api;
 
-import micro.library.docker.domain.DockerContainer;
+import micro.library.docker.domain.Container;
+import micro.library.docker.domain.Image;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,26 +13,26 @@ import java.util.List;
 public class DockerApiImpl implements DockerApi {
 
     /**
-     * Builds a standard docker execution command using the values passed into the 'DockerContainer'.
+     * Builds a standard docker execution command using the values passed into the 'Container'.
      *
-     * @param dockerContainer DockerContainer
+     * @param container Container
      * @return int status code of the execution. Anything but 0 will represent an error.
      */
     @Override
-    public int run(DockerContainer dockerContainer) {
+    public int run(Container container) {
         final List<String> command = new ArrayList<>();
 
         command.add("docker");
         command.add("run");
 
-        if (dockerContainer.getRemove()) command.add("--rm");
+        if (container.getRemove()) command.add("--rm");
 
         command.add("--name");
-        command.add(dockerContainer.getName());
-        command.addAll(dockerContainer.getEnvironment());
-        command.addAll(dockerContainer.getVolume());
+        command.add(container.getName());
+        command.addAll(container.getEnvironment());
+        command.addAll(container.getVolume());
 
-        command.add(dockerContainer.getImage());
+        command.add(container.getImage().toString());
 
         return executeScript(command);
     }
@@ -50,6 +51,18 @@ public class DockerApiImpl implements DockerApi {
 
         return executeScript(command);
     }
+
+    @Override
+    public int pull(Image image) {
+        final List<String> command = new ArrayList<>();
+
+        command.add("docker");
+        command.add("pull");
+        command.add(image.toString());
+
+        return executeScript(command);
+    }
+
 
     /**
      * Streams the output from the executing script to the console.
@@ -95,4 +108,5 @@ public class DockerApiImpl implements DockerApi {
 
         return -1;
     }
+
 }

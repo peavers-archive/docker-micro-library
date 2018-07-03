@@ -8,29 +8,29 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class DockerContainerTest {
+class ContainerTest {
 
-    private DockerContainer dockerContainer;
+    private Container container;
 
     @BeforeEach
     void setUp() {
-        this.dockerContainer = new DockerContainer();
+        this.container = new Container();
 
-        dockerContainer.addEnvironment("TEST_ONE");
-        dockerContainer.addEnvironment("TEST_TWO");
+        container.addEnvironment("TEST_ONE");
+        container.addEnvironment("TEST_TWO");
 
-        dockerContainer.addVolume("TEST_ONE");
-        dockerContainer.addVolume("TEST_TWO");
+        container.addVolume("TEST_ONE");
+        container.addVolume("TEST_TWO");
     }
 
     @AfterEach
     void tearDown() {
-        this.dockerContainer = null;
+        this.container = null;
     }
 
     @Test
     void addVolume() {
-        List<String> volume = dockerContainer.getVolume();
+        List<String> volume = container.getVolume();
 
         assertEquals("-v", volume.get(0));
         assertEquals("TEST_ONE", volume.get(1));
@@ -41,7 +41,7 @@ class DockerContainerTest {
 
     @Test
     void addEnvironment() {
-        List<String> environment = dockerContainer.getEnvironment();
+        List<String> environment = container.getEnvironment();
 
         assertEquals("-e", environment.get(0));
         assertEquals("TEST_ONE", environment.get(1));
