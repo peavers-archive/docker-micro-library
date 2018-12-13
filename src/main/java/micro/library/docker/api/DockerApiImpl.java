@@ -1,14 +1,14 @@
 package micro.library.docker.api;
 
-import micro.library.docker.domain.Container;
-import micro.library.docker.domain.Image;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import micro.library.docker.domain.Container;
+import micro.library.docker.domain.Image;
 
 public class DockerApiImpl implements DockerApi {
 
@@ -22,10 +22,25 @@ public class DockerApiImpl implements DockerApi {
     public int run(Container container) {
         final List<String> command = new ArrayList<>();
 
+        return execute(container, command);
+    }
+
+    @Override
+    public int run(Container container, HashMap<String, String> extraCommands) {
+        final List<String> command = new ArrayList<>();
+
+        extraCommands.forEach((k, v) -> command.add(k + " " + v));
+
+        return execute(container, command);
+    }
+
+    private int execute(Container container, List<String> command) {
         command.add("docker");
         command.add("run");
 
-        if (container.getRemove()) command.add("--rm");
+        if (container.getRemove()) {
+            command.add("--rm");
+        }
 
         command.add("--name");
         command.add(container.getName());
@@ -62,7 +77,6 @@ public class DockerApiImpl implements DockerApi {
 
         return executeScript(command);
     }
-
 
     /**
      * Streams the output from the executing script to the console.
